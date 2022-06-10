@@ -4,23 +4,14 @@ import { resolvers } from './graphql/resolvers/greeting.resolver';
 import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
-// import mongoose, { Mongoose } from 'mongoose';
 
 dotenv.config();
 
 
 const port = process.env.PORT || 4000;
-// console.log(port);
 
 // Db connection
 Connect('team','mongodb://127.0.0.1:27017');
-
-// mongoose.connect('mongodb://127.0.0.1:27017/team').then(() => {
-//     console.log('connected to mongodb...');
-// })
-// .catch((err) => {
-//     console.log('error: ' + err.message);
-// })
 
 // Server setup
 const app = express();
@@ -33,6 +24,7 @@ app.get("/", (_, res) => {
 const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    context: {}
 });
 
 const main = async () => {
