@@ -1,9 +1,9 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
-import { resolvers } from './graphql/resolvers/greeting.resolver';
 import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
+
 
 dotenv.config();
 
