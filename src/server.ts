@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
+import { resolvers } from './graphql/resolvers/greeting.resolver';
 
 
 dotenv.config();

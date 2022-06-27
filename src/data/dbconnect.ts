@@ -12,7 +12,7 @@ export async function Connect(dbname: string, host: string, user?: string, passw
     console.log(uri);
 
     connect(uri).then(() => {
-        console.log(`Connect to ${dbname} on mongodb...` );
+        console.log(`Connected to ${dbname} on mongodb...` );
     })
     .catch((err) => {
         console.log('Error occured conecting to mongodb: ' + err.message);

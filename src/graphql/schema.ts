@@ -10,14 +10,25 @@ export const typeDefs = gql`
         password: String
     }
 
-    # type Users {
-    #     users: [User]
-    #     # user(id: ID!): User
-    # }
+    type Project {
+        id: ID!
+        title: String!
+        description: String!
+    }
 
+    type Task {
+        id: ID!
+        description: String!
+        projectid: String
+    }
+   
     type Query {
         greeting: String
         users: [User]
         user(id:ID!): User
+        tasks: [Task]
+        task(id: ID!): Task
+        projects: [Project]
+        project(id: ID!): Project
     }
 `;
