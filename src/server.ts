@@ -3,8 +3,8 @@ import { ApolloServer } from 'apollo-server-express';
 import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
-import { resolvers } from './graphql/resolvers/greeting.resolver';
-
+import { resolvers } from './graphql/resolvers';
+import { mergeResolvers } from '@graphql-tools/merge'
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.get("/", (_, res) => {
 
 const apolloServer = new ApolloServer({
     typeDefs,
-    resolvers,
+    resolvers: mergeResolvers(resolvers),
     context: {}
 });
 
