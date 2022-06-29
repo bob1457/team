@@ -13,7 +13,15 @@ export const userSchema = new Schema<IUser>({
         minLength: 6,
         maxLength: 255,
         unique: false
-    },    
+    }, 
+    isDisabled: {
+         type: Boolean, 
+         required: true
+    },
+    confirmed: {
+        type: Boolean, 
+        required: true
+   }, 
 }, {timestamps: true});
 
 export const User = model<IUser>('User', userSchema);

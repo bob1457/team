@@ -19,35 +19,7 @@ export const userResolvers = {
             return await users.find( user => user.id === args.id);
         }
     },
-    Mutation: {        
-
-        // createUser: async (_: any,args: any, ctx: any): Promise<any> => {
-        //     const {
-        //         input: { email, password },
-        //       } = args;
-        //     const salt = bcrypt.genSaltSync(10);
-        //     try {
-        //         const user = await User.create({
-        //             email,
-        //             password: bcrypt.hashSync(password, salt),
-        //           });
-          
-        //           const token = await jwt.sign(
-        //             { _id: user._id, email: user.email },
-        //             "WVLrXdbNrVCZxGRo8krr",
-        //             {
-        //               expiresIn: '1d',
-        //             }
-        //           );
-        //           ctx.res.cookie(TOKEN_KEY, JSON.stringify(token), cookieOpts);
-        //           return {
-        //             token,
-        //           };
-                
-        //     } catch (error) {
-                
-        //     }
-        // }
+    Mutation: {  
 
         createUser: async (_: any, args: any): Promise<any> => {
             console.log('here to create user');
@@ -56,19 +28,16 @@ export const userResolvers = {
                 if (existingUser) {
                     throw new Error('User already exists');
                 }
-
-                // const {
-                //     input: { email, password },
-                // } = args;
-
                 
                 // console.log(args.email, args.password);
                 
                 const salt = bcrypt.genSaltSync(10);
 
                 const user = await User.create({
-                   email: args.email,
-                    password: bcrypt.hashSync(args.password, salt), confirmed: true, isDisbled:false
+                    email: args.email,
+                    password: bcrypt.hashSync(args.password, salt), 
+                    confirmed: true, 
+                    isDisabled: false
                 });
 
                 return user;

@@ -9,7 +9,7 @@ export const users =
             avatarImgUrl:'',
             password: 'password',
             confirmed: true,
-            isDiabled: false
+            isDisabled: false
         },
         {
             id: '2',
@@ -20,7 +20,7 @@ export const users =
             avatarImgUrl:'',
             password: 'password',
             confirmed: true,
-            isDiabled: false
+            isDisabled: false
         },
         {
             id: '3',
@@ -31,7 +31,7 @@ export const users =
             avatarImgUrl:'',
             password: 'password',
             confirmed: true,
-            isDiabled: false
+            isDisabled: false
         },
         {
             id: '4',
@@ -42,7 +42,7 @@ export const users =
             avatarImgUrl:'',
             password: 'password',
             confirmed: true,
-            isDiabled: false
+            isDisabled: false
         },
         {
             id: '5',
@@ -53,7 +53,7 @@ export const users =
             avatarImgUrl:'',
             password: 'password',
             confirmed: true,
-            isDiabled: false
+            isDisabled: false
         },
 
     ]

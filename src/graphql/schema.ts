@@ -15,7 +15,7 @@ export const typeDefs = gql`
         avatarImgUrl: String
         password: String
         confirmed: Boolean!
-        isDiabled: Boolean!
+        isDisabled: Boolean!
         projects: [Project]
         createdAt: Date
         updatedAt: Date
