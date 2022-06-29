@@ -22,7 +22,7 @@ export const userResolvers = {
     Mutation: {  
 
         createUser: async (_: any, args: any): Promise<any> => {
-            console.log('here to create user');
+            
             try {
                 const existingUser = await User.findOne({ email: args.email});
                 if (existingUser) {
