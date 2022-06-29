@@ -1,8 +1,11 @@
 export interface IUser {
     id: string;
-    firstName: string;
-    lastName: string;
+    // firstName: string;
+    // lastName: string;
     email: string;
-    avatarImgUrl?: string;
+    // role: string;
+    // avatarImgUrl?: string;
     password: string;
+    confirmed: boolean;
+    isDiabled: boolean;
 }

@@ -1,4 +1,3 @@
-import { users } from "../../data/data.mock"
 
 const greetingResolvers = {
     Query: {

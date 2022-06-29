@@ -1,5 +1,5 @@
 import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
+import { ApolloServer, Config } from 'apollo-server-express';
 import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
@@ -22,11 +22,13 @@ app.get("/", (_, res) => {
     res.send('Hello from EXPERSS');
 });
 
-const apolloServer = new ApolloServer({
+const serverConfig : Config = {
     typeDefs,
     resolvers: mergeResolvers(resolvers),
     context: {}
-});
+}
+
+const apolloServer = new ApolloServer(serverConfig);
 
 const main = async () => {
     await apolloServer.start();
@@ -36,7 +38,7 @@ const main = async () => {
     //     apolloServer.applyMiddleware({ app, cors: true });
     
     app.listen(port, () => {
-        console.log(`Apollo server started and listen to port: ${port}`);
+        console.log(`Apollo server started and is listening to port: ${port}`);
     });
 };
 
