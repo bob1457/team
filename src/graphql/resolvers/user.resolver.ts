@@ -1,7 +1,6 @@
-import { users } from "../../data/data.mock";
-
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
+import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
 // import jwt from 'jsonwebtoken';
 
 // const TOKEN_KEY = 'x-access-token';
@@ -14,12 +13,15 @@ import { User } from "../../data/dbSchemas/user.schema2";
 export const userResolvers = {
     
     Query: {       
-        users: async () => {
+        getAllUsers: async () => {
             return User.find();            
         },
-        user: async (_: any, args: any) => {
+        getuserById: async (_: any, args: any) => {
             return await User.findOne({id: args.id});
-        }
+        },
+        getuserByEmail: async (_: any, args: any) => {
+            return await UserProfile.findOne({email: args.input.email});
+        },
     },
     Mutation: {  
 
@@ -49,6 +51,22 @@ export const userResolvers = {
 
             } catch (error) {
                 throw new Error('User creation failed! Error: ' + error.message);
+            }
+        },
+        createUserProfile: async (_: any, args: any): Promise<any> => {
+            try {
+                const profile = await UserProfile.create({ 
+                    firstName:args.input.firstName,
+                    lastName:args.input.lastName,
+                    role:args.input.role,
+                    email:args.input.email,
+                    avatarImgUrl: args.input.avatarImgUrl
+                });
+
+                return profile;
+
+            } catch (error) {
+                throw new Error('User profile creation failed! Error: ' + error.message);
             }
         }
     }

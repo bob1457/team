@@ -43,6 +43,14 @@ export const typeDefs = gql`
         password: String!
     }
 
+    input UserData {
+        firstName: String!
+        lastName: String!
+        email: String!
+        role: String!
+        avatarImgUrl: String        
+    }
+
     input GetUserByEmail {
         email: String!
     }
@@ -75,8 +83,10 @@ export const typeDefs = gql`
 
     type Query {
         greeting: String
-        users: [User]
-        user(id:ID!): User
+        getAllUsers: [User]
+        getuserById(id:ID!): User
+        getuserByEmail(input: GetUserByEmail): UserProfile
+        # getUserProfile(id:ID!): UserProfile
         tasks: [Task]
         task(id: ID!): Task
         projects: [Project]
@@ -88,6 +98,7 @@ export const typeDefs = gql`
     type Mutation {
         # createUser(email: String!, password: String!): User
         createUser(input: UserCredens): User
+        createUserProfile(input: UserData): UserProfile
         signInUser(input: UserCredens): SignIn!
         signOutUser: SignOutUser!
     }
