@@ -7,15 +7,22 @@ export const typeDefs = gql`
 # User types
 
     type User {
+        id: ID!        
+        email: String!        
+        password: String
+        isDisabled: Boolean!
+        confirmed: Boolean!        
+        createdAt: Date
+        updatedAt: Date
+    }
+
+    type UserProfile {
         id: ID!
         firstName: String!
         lastName: String!
         email: String!
         role: String!
-        avatarImgUrl: String
-        password: String
-        confirmed: Boolean!
-        isDisabled: Boolean!
+        avatarImgUrl: String        
         projects: [Project]
         createdAt: Date
         updatedAt: Date
@@ -79,8 +86,8 @@ export const typeDefs = gql`
     # Root Mutation
 
     type Mutation {
-        createUser(email: String!, password: String!): User
-        # createUser(input: UserCredens): User
+        # createUser(email: String!, password: String!): User
+        createUser(input: UserCredens): User
         signInUser(input: UserCredens): SignIn!
         signOutUser: SignOutUser!
     }

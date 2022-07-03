@@ -14,17 +14,22 @@ import { User } from "../../data/dbSchemas/user.schema2";
 export const userResolvers = {
     
     Query: {       
-        users: () => users,
-        user: async (_: any,args: any) => {
-            return await users.find( user => user.id === args.id);
+        users: async () => {
+            return User.find();            
+        },
+        user: async (_: any, args: any) => {
+            return await User.findOne({id: args.id});
         }
     },
     Mutation: {  
 
         createUser: async (_: any, args: any): Promise<any> => {
+
+            // console.log('get here');
+            // console.log(args.input.email);
             
             try {
-                const existingUser = await User.findOne({ email: args.email});
+                const existingUser = await User.findOne({ email: args.input.email});
                 if (existingUser) {
                     throw new Error('User already exists');
                 }
@@ -34,8 +39,8 @@ export const userResolvers = {
                 const salt = bcrypt.genSaltSync(10);
 
                 const user = await User.create({
-                    email: args.email,
-                    password: bcrypt.hashSync(args.password, salt), 
+                    email: args.input.email,
+                    password: bcrypt.hashSync(args.input.password, salt), 
                     confirmed: true, 
                     isDisabled: false
                 });
@@ -43,7 +48,7 @@ export const userResolvers = {
                 return user;
 
             } catch (error) {
-                throw new Error('User creation failed!' + error.message);
+                throw new Error('User creation failed! Error: ' + error.message);
             }
         }
     }
