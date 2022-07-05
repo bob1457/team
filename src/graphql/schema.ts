@@ -4,6 +4,24 @@ export const typeDefs = gql`
 
     scalar Date
 
+    enum UserRole { 
+        ADMIN
+        DEVELOPER
+        LEAD
+    }
+
+# team type
+
+    type Team {
+        id: ID!
+        name: String!
+        description: String
+        members: [User]!
+        createdAt: Date
+        updatedAt: Date
+        createdBy: User!
+    }
+
 # User types
 
     type User {
@@ -21,7 +39,7 @@ export const typeDefs = gql`
         firstName: String!
         lastName: String!
         email: String!
-        role: String!
+        role: UserRole!
         avatarImgUrl: String        
         projects: [Project]
         createdAt: Date
@@ -47,7 +65,7 @@ export const typeDefs = gql`
         firstName: String!
         lastName: String!
         email: String!
-        role: String!
+        role: UserRole!
         avatarImgUrl: String        
     }
 

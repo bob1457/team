@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
 import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
-// import jwt from 'jsonwebtoken';
+
 
 // const TOKEN_KEY = 'x-access-token';
 // const cookieOpts = {
@@ -11,7 +11,11 @@ import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
 //   };
 
 export const userResolvers = {
-    
+    UserRole: {
+        ADMIN: 'admin',
+        DEVELOPER: 'developer',
+        LEAD: 'lead'
+    },
     Query: {       
         getAllUsers: async () => {
             return User.find();            
