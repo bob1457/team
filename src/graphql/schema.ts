@@ -39,7 +39,7 @@ export const typeDefs = gql`
         id: ID!
         firstName: String!
         lastName: String!
-        email: String!
+        # email: String!
         role: UserRole!
         avatarImgUrl: String        
         projects: [Project]

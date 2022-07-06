@@ -1,4 +1,5 @@
 import { IUser } from 'src/models/user.model';
+import { IUserProfile } from '../../models/user.profile.model';
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
 import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
@@ -22,7 +23,7 @@ export const userResolvers = {
             return User.find();            
         },
         getuserById: async (_: any, args: any) => {
-            return await User.findOne({id: args.id});
+            return await User.findOne({_id: args.id});
         },
         getuserByEmail: async (_: any, args: any) => {
             return await UserProfile.findOne({email: args.input.email});
@@ -42,16 +43,16 @@ export const userResolvers = {
                 }                
                                
                 const salt = bcrypt.genSaltSync(10);
+                let userProfile = null;
 
-                const createUser = (email: String, password: String, isDisabled: Boolean, confirmed: Boolean) => {
+                const newUser = (email: String, password: String, isDisabled: Boolean, confirmed: Boolean) => {
                     const user = new User({email, password, isDisabled, confirmed});
                     return user.save();
                 }
 
                 const createProfile = (
                     firstName: String,
-                    lastName:String,                    
-                    email:String,
+                    lastName:String,
                     role: String,
                     avatarImgUrl: String,
                     user: String,
@@ -59,49 +60,32 @@ export const userResolvers = {
 
                         console.log('get here to create profile...');
 
-                        const profile = new UserProfile({firstName, lastName, email, role, avatarImgUrl, user});
+                        const profile = new UserProfile({firstName, lastName, role, avatarImgUrl, user});
 
                         return profile.save();
                 }
 
-                createUser(args.input.email, bcrypt.hashSync(args.input.password, salt), false, true)
-                .then((user: IUser) => {
+                const createdUser = await newUser(args.input.email, bcrypt.hashSync(args.input.password, salt), false, true)
+                // .then((user: IUser) => {
                         
-                        console.log(user);
+                        console.log(createdUser);
 
-                        const userId = user.id.toString();
+                        const userId = createdUser.id.toString();
                         console.log("new user id: ", userId);
-                        // console.log('get here to create profile...');
-                        createProfile(args.input.firstName, args.input.lastName, args.input.email, args.input.role, args.input.avatarImgUrl, userId)
-                        .then((profile) => {
-                            console.log(profile);
-                            return profile;
-                        }).catch((error) => {throw new Error('User creation failed! Error: ' + error.message);}); 
-                    
-                    return user;
-                    
-                })
+
+
+                        const useProfile = await createProfile(args.input.firstName, args.input.lastName, args.input.role, args.input.avatarImgUrl, userId);
+                
+                        console.log(userProfile);
+
+                        return useProfile;               
 
             } catch (error) {
                 throw new Error('User creation failed! Error: ' + error.message);
             }
         },
-        createUserProfile: async (_: any, args: any): Promise<any> => {
-            try {
-                const profile = await UserProfile.create({ 
-                    firstName:args.input.firstName,
-                    lastName:args.input.lastName,
-                    role:args.input.role,
-                    email:args.input.email,
-                    avatarImgUrl: args.input.avatarImgUrl
-                });
 
-                return profile;
-
-            } catch (error) {
-                throw new Error('User profile creation failed! Error: ' + error.message);
-            }
-        }
+        
     }
 
 }
