@@ -29,7 +29,8 @@ export const typeDefs = gql`
         email: String!        
         password: String
         isDisabled: Boolean!
-        confirmed: Boolean!        
+        confirmed: Boolean! 
+        # profile: UserProfile       
         createdAt: Date
         updatedAt: Date
     }
@@ -42,6 +43,7 @@ export const typeDefs = gql`
         role: UserRole!
         avatarImgUrl: String        
         projects: [Project]
+        user: User!
         createdAt: Date
         updatedAt: Date
     }
@@ -58,6 +60,15 @@ export const typeDefs = gql`
 
     input UserCredens {
         email: String!
+        password: String!
+    }
+
+    input NewUser {
+        firstName: String!
+        lastName: String!
+        email: String!
+        role: UserRole!
+        avatarImgUrl: String        
         password: String!
     }
 
@@ -115,7 +126,7 @@ export const typeDefs = gql`
 
     type Mutation {
         # createUser(email: String!, password: String!): User
-        createUser(input: UserCredens): User
+        createUser(input: NewUser): UserProfile
         createUserProfile(input: UserData): UserProfile
         signInUser(input: UserCredens): SignIn!
         signOutUser: SignOutUser!

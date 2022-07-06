@@ -1,5 +1,6 @@
 import { model, Schema } from "mongoose";
 import { IUser } from "src/models/user.model";
+// import { UserProfile } from "./user.profile.schema";
 
 export const userSchema = new Schema<IUser>({
     email: { 

@@ -1,3 +1,4 @@
+import { IUser } from 'src/models/user.model';
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
 import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
@@ -38,20 +39,48 @@ export const userResolvers = {
                 const existingUser = await User.findOne({ email: args.input.email});
                 if (existingUser) {
                     throw new Error('User already exists');
-                }
-                
-                // console.log(args.email, args.password);
-                
+                }                
+                               
                 const salt = bcrypt.genSaltSync(10);
 
-                const user = await User.create({
-                    email: args.input.email,
-                    password: bcrypt.hashSync(args.input.password, salt), 
-                    confirmed: true, 
-                    isDisabled: false
-                });
+                const createUser = (email: String, password: String, isDisabled: Boolean, confirmed: Boolean) => {
+                    const user = new User({email, password, isDisabled, confirmed});
+                    return user.save();
+                }
 
-                return user;
+                const createProfile = (
+                    firstName: String,
+                    lastName:String,                    
+                    email:String,
+                    role: String,
+                    avatarImgUrl: String,
+                    user: String,
+                    ) => {
+
+                        console.log('get here to create profile...');
+
+                        const profile = new UserProfile({firstName, lastName, email, role, avatarImgUrl, user});
+
+                        return profile.save();
+                }
+
+                createUser(args.input.email, bcrypt.hashSync(args.input.password, salt), false, true)
+                .then((user: IUser) => {
+                        
+                        console.log(user);
+
+                        const userId = user.id.toString();
+                        console.log("new user id: ", userId);
+                        // console.log('get here to create profile...');
+                        createProfile(args.input.firstName, args.input.lastName, args.input.email, args.input.role, args.input.avatarImgUrl, userId)
+                        .then((profile) => {
+                            console.log(profile);
+                            return profile;
+                        }).catch((error) => {throw new Error('User creation failed! Error: ' + error.message);}); 
+                    
+                    return user;
+                    
+                })
 
             } catch (error) {
                 throw new Error('User creation failed! Error: ' + error.message);

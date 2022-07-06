@@ -5,4 +5,5 @@ export interface IUserProfile {
     email: string;
     role: string;
     avatarImgUrl?: string;
+    user: String;
 }

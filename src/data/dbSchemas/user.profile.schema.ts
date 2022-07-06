@@ -13,13 +13,14 @@ export const userProfileSchema = new Schema<IUserProfile>({
     role: {
         type: String, 
         required: true
+    },    
+    avatarImgUrl: String, 
+    user: { 
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
     },
-    email: { 
-        type: String,  
-        required: true,
-        unique: true        
-    },
-    avatarImgUrl: String,    
+       
 }, {timestamps: true});
 
 export const UserProfile = model<IUserProfile>('UserProfile', userProfileSchema);
