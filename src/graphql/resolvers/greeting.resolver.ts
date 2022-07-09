@@ -1,5 +1,5 @@
 
-const greetingResolvers = {
+export const greetingResolvers = {
     Query: {
         greeting: () => {
             return "Hello World from Apollo"
@@ -7,4 +7,4 @@ const greetingResolvers = {
     }
 }
 
-export default greetingResolvers;
+// export default greetingResolvers;

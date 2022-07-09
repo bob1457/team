@@ -1,10 +1,15 @@
 import express from 'express';
-import { ApolloServer, Config } from 'apollo-server-express';
-import { typeDefs } from './graphql/schema';
+import { ApolloServer, Config, gql } from 'apollo-server-express';
+// import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
 import { resolvers } from './graphql/resolvers';
-import { mergeResolvers } from '@graphql-tools/merge'
+import { mergeResolvers } from '@graphql-tools/merge';
+import { rootType } from './graphql/root';
+import { projectTypeDefs } from './graphql/schemas/project.type';
+import { userTypeDefs } from './graphql/schemas/user.type';
+import { typeDefs } from './graphql/schema';
+import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 
 dotenv.config();
 
@@ -22,8 +27,14 @@ app.get("/", (_, res) => {
     res.send('Hello from EXPERSS');
 });
 
+// const baseTypeDefs = gql`  type Query, type Mutation, type Subscription`;
+
 const serverConfig : Config = {
-    typeDefs,
+    typeDefs: [
+        rootType, 
+        userTypeDefs, 
+        greetingTypeDefs, 
+        projectTypeDefs],
     resolvers: mergeResolvers(resolvers),
     context: {}
 }

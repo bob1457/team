@@ -1,5 +1,3 @@
-import { IUser } from 'src/models/user.model';
-import { IUserProfile } from '../../models/user.profile.model';
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
 import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
