@@ -42,7 +42,8 @@ export const userTypeDefs = gql`
     }
 
     type SignIn {
-        isAuthenticated: Boolean!
+        isAuthenticated: Boolean!        
+        access_token: String!
     }
 
     input UserCredens {

@@ -1,5 +1,5 @@
 import express from 'express';
-import { ApolloServer, Config, gql } from 'apollo-server-express';
+import { ApolloServer, Config } from 'apollo-server-express';
 // import { typeDefs } from './graphql/schema';
 import * as dotenv from 'dotenv';
 import { Connect } from './data/dbconnect';
@@ -8,7 +8,6 @@ import { mergeResolvers } from '@graphql-tools/merge';
 import { rootType } from './graphql/root';
 import { projectTypeDefs } from './graphql/schemas/project.type';
 import { userTypeDefs } from './graphql/schemas/user.type';
-import { typeDefs } from './graphql/schema';
 import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 
 dotenv.config();
