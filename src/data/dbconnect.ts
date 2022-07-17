@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
 
-export async function Connect(dbname: string, host: string, user?: string, password?: string) {
+export const Connect = async (dbname: string, host: string, user?: string, password?: string) => {
     
     let uri = '';
 

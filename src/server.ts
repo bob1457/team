@@ -9,7 +9,7 @@ import { rootType } from './graphql/root';
 import { projectTypeDefs } from './graphql/schemas/project.type';
 import { userTypeDefs } from './graphql/schemas/user.type';
 import { greetingTypeDefs } from './graphql/schemas/greeting.type';
-import { model } from 'mongoose';
+import { model } from './data/dbSchemas';
 
 dotenv.config();
 
@@ -18,6 +18,7 @@ const port = process.env.PORT || 4000;
 
 // Db connection
 Connect('team','mongodb://127.0.0.1:27017');
+
 
 // Server setup
 const app = express();
@@ -29,6 +30,14 @@ app.get("/", (_, res) => {
 
 // const baseTypeDefs = gql`  type Query, type Mutation, type Subscription`;
 
+const context = ({ req, res }) => {
+    return ({
+        token: req.headers.authorization || null,
+        res,
+        model
+    });
+}
+
 const serverConfig : Config = {
     typeDefs: [
         rootType, 
@@ -36,8 +45,10 @@ const serverConfig : Config = {
         greetingTypeDefs, 
         projectTypeDefs],
     resolvers: mergeResolvers(resolvers),
-    context: {model}
+    context
 }
+
+
 
 const apolloServer = new ApolloServer(serverConfig);
 

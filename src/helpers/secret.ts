@@ -6,5 +6,5 @@ const private_key = '-----BEGIN RSA PRIVATE KEY-----MIICWwIBAAKBgQDIFKFch9dX3jC2
 
 // const private_key = Buffer.from(key, "base64").toString('ascii');
 
-// export default private_key;
+export default private_key;
 

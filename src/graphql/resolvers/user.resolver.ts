@@ -24,17 +24,18 @@ export const userResolvers = {
         LEAD: 'lead'
     },
     Query: {       
-        getAllUsers: async () => {
-            return User.find();            
+        getAllUsers: async (_:any, __:any, context: any) => {
+            console.log(context);
+            return await context.model.User.find();            
         },
-        getuserById: async (_: any, args: any) => {
-            return await User.findOne({_id: args.id});
+        getuserById: async (_: any, args: any, context: any) => {
+            return await context.model.User.findOne({_id: args.id});
         },
-        getuserByEmail: async (_: any, args: any) => {
-            return await UserProfile.findOne({email: args.input.email});
+        getuserByEmail: async (_: any, args: any, context: any) => {
+            return await context.model.UserProfile.findOne({email: args.input.email});
         },
-        getuserProfile: async (_: any, args: any) => {
-            return await UserProfile.findOne({user: args.id});
+        getuserProfile: async (_: any, args: any, context: any) => {
+            return await context.model.UserProfile.findOne({user: args.id});
         }
     },
     Mutation: {  
