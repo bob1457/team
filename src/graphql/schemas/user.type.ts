@@ -81,6 +81,7 @@ export const userTypeDefs = gql`
         getAllUsers: [User]
         getuserById(id:ID!): User
         getuserByEmail(input: GetUserByEmail): UserProfile
+        getuserProfile(id: ID!): UserProfile
         # getUserProfile(id:ID!): UserProfile
         # tasks: [Task]
         # task(id: ID!): Task

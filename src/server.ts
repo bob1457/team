@@ -9,6 +9,7 @@ import { rootType } from './graphql/root';
 import { projectTypeDefs } from './graphql/schemas/project.type';
 import { userTypeDefs } from './graphql/schemas/user.type';
 import { greetingTypeDefs } from './graphql/schemas/greeting.type';
+import { model } from 'mongoose';
 
 dotenv.config();
 
@@ -35,7 +36,7 @@ const serverConfig : Config = {
         greetingTypeDefs, 
         projectTypeDefs],
     resolvers: mergeResolvers(resolvers),
-    context: {}
+    context: {model}
 }
 
 const apolloServer = new ApolloServer(serverConfig);

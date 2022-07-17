@@ -3,8 +3,10 @@ import { User } from "../../data/dbSchemas/user.schema2";
 import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
 import jwt from 'jsonwebtoken';
 // import { private_key } from 'src/helpers/secret';
+import * as dotenv from 'dotenv';
 
 
+dotenv.config();
 // const TOKEN_KEY = 'x-access-token';
 // const cookieOpts = {
 //     path: '/',
@@ -13,6 +15,7 @@ import jwt from 'jsonwebtoken';
 //   };
 
 // const private_key = process.env.JWT_SECRET; // 'LS0tLS1CRUdJTiB45JJVkFURSBLRVk-090tLQpNSUlFb1F2JQkFBS0NBUUIySk0';
+const secret = process.env.JWT_SECRET;
 
 export const userResolvers = {
     UserRole: {
@@ -30,13 +33,13 @@ export const userResolvers = {
         getuserByEmail: async (_: any, args: any) => {
             return await UserProfile.findOne({email: args.input.email});
         },
+        getuserProfile: async (_: any, args: any) => {
+            return await UserProfile.findOne({user: args.id});
+        }
     },
     Mutation: {  
 
         createUser: async (_: any, args: any): Promise<any> => {
-
-            // console.log('get here');
-            // console.log(args.input.email);
             
             try {
                 const existingUser = await User.findOne({ email: args.input.email});
@@ -89,6 +92,8 @@ export const userResolvers = {
 
         signInUser: async (_: any, args: any) : Promise<any> => {
 
+            // console.log(secret);
+
             try {
                 
                 const user = await User.findOne({email: args.input.email});
@@ -103,12 +108,17 @@ export const userResolvers = {
                     throw new Error('Incorrect credentials!')
                 }
 
-                const token = await jwt.sign({ userid: user.id, email: user.email }, 'private_key', {
-                    // algorithm: "RS256", // this algorithm needs to use a public/private key to sign, more securei, recommended in produciton 
-                    expiresIn: '1h'
-                });                
+                if(secret){
+                    const token = await jwt.sign({ userid: user.id, email: user.email }, secret, {
+                                    // algorithm: "RS256", // this algorithm needs to use a public/private key to sign, more securei, recommended in produciton 
+                                    expiresIn: '1h'
+                                });  
+                                
+                    return { isAuthenticated: true, access_token: token}
 
-                return { isAuthenticated: true, access_token: token}
+                } else {
+                    throw new Error('JWT signing failed!');
+                }
 
             } catch (error) {
                 throw new Error('Error occured: ' + error.message);
