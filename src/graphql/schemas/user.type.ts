@@ -17,7 +17,7 @@ export const userTypeDefs = gql`
         password: String
         isDisabled: Boolean!
         confirmed: Boolean! 
-        # profile: UserProfile       
+        profile: UserProfile       
         createdAt: Date
         updatedAt: Date
     }
@@ -80,8 +80,10 @@ export const userTypeDefs = gql`
         # greeting: String
         getAllUsers: [User]
         getuserById(id:ID!): User
-        getuserByEmail(input: GetUserByEmail): UserProfile
-        getuserProfile(id: ID!): UserProfile
+        user(id:ID!):User
+        # getuserByEmail(input: GetUserByEmail): UserProfile
+        userProfile(id: ID!): UserProfile
+        # profiles: [UserProfile!]!
         # getUserProfile(id:ID!): UserProfile
         # tasks: [Task]
         # task(id: ID!): Task
