@@ -9,6 +9,8 @@ export const userTypeDefs = gql`
         ADMIN
         DEVELOPER
         LEAD
+        QA
+        SA
     }
 
     type User {
@@ -80,7 +82,7 @@ export const userTypeDefs = gql`
         # greeting: String
         getAllUsers: [User]
         getuserById(id:ID!): User
-        user(id:ID!):User
+        # user(id:ID!):User
         # getuserByEmail(input: GetUserByEmail): UserProfile
         userProfile(id: ID!): UserProfile
         # profiles: [UserProfile!]!
@@ -97,5 +99,6 @@ export const userTypeDefs = gql`
         createUserProfile(input: UserData): UserProfile
         signInUser(input: UserCredens): SignIn!
         signOutUser: SignOutUser!
+        # createTeam(input: NewTeam): Team
     }
 `;

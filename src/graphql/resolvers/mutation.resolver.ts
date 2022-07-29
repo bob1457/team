@@ -1,10 +1,9 @@
 import { UserProfile } from './../../data/dbSchemas/user.profile.schema';
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
-// import { UserProfile } from '../../data/dbSchemas/user.profile.schema';
 import jwt from 'jsonwebtoken';
-// import { private_key } from 'src/helpers/secret';
 import * as dotenv from 'dotenv';
+import { Team } from '../../data/dbSchemas/team.schema';
 
 
 dotenv.config();
@@ -51,8 +50,7 @@ export const mutationResolvers = {
                 }
 
                 const createdUser = await newUser(args.input.email, bcrypt.hashSync(args.input.password, salt), false, true)
-                // .then((user: IUser) => {
-                        
+                                        
                         console.log(createdUser);
 
                         const userId = createdUser.id.toString();
@@ -102,6 +100,25 @@ export const mutationResolvers = {
 
             } catch (error) {
                 throw new Error('Error occured: ' + error.message);
+            }
+        },
+
+        createTeam: async (_: any, args: any) : Promise<any> => {
+
+            const newTeam = (name: string, description: string, lead: string) => {
+                    const team = new Team({name, description,lead});
+                    return team.save();
+                }
+
+            try {                
+
+                
+                const createdTeam = await newTeam(args.input.name, args.input.description, args.input.leadId);
+                // console.log('new team', createdTeam);
+                return createdTeam;
+                
+            } catch (error) {
+                throw new Error('Team creation failed! Error: ' + error.message);
             }
         }
     }

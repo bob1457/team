@@ -10,6 +10,7 @@ import { projectTypeDefs } from './graphql/schemas/project.type';
 import { userTypeDefs } from './graphql/schemas/user.type';
 import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 import { model } from './data/dbSchemas';
+import { teamTypeDefs } from './graphql/schemas/team.type';
 
 dotenv.config();
 
@@ -30,7 +31,7 @@ app.get("/", (_, res) => {
 
 // const baseTypeDefs = gql`  type Query, type Mutation, type Subscription`;
 
-const context = ({ req, res }) => {
+const context = ({ req, res } : any) => {
     return ({
         token: req.headers.authorization || null,
         res,
@@ -43,7 +44,9 @@ const serverConfig : Config = {
         rootType, 
         userTypeDefs, 
         greetingTypeDefs, 
-        projectTypeDefs],
+        projectTypeDefs,
+        teamTypeDefs
+    ],
     resolvers: mergeResolvers(resolvers),
     context
 }

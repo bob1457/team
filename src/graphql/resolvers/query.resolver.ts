@@ -1,7 +1,7 @@
 export const queryResolvers = {
     Query: {
         getAllUsers: async (_:any, __:any, {model}: any) => {
-            // console.log(model);
+            
             return await model.User.find();            
         },
         getuserById: async (_: any, args: any, context: any) => {                        
