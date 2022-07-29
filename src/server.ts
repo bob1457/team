@@ -26,7 +26,7 @@ const app = express();
 
 // REST api endpoint
 app.get("/", (_, res) => {
-    res.send('Hello from EXPERSS');
+    res.send('Hello from EXPRESS');
 });
 
 // const baseTypeDefs = gql`  type Query, type Mutation, type Subscription`;
