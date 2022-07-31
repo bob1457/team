@@ -4,6 +4,7 @@ import { User } from "../../data/dbSchemas/user.schema2";
 import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 import { Team } from '../../data/dbSchemas/team.schema';
+import { Department } from '../../data/dbSchemas/department.schema';
 
 
 dotenv.config();
@@ -110,9 +111,8 @@ export const mutationResolvers = {
                     return team.save();
                 }
 
-            try {                
+            try {
 
-                
                 const createdTeam = await newTeam(args.input.name, args.input.description, args.input.leadId);
                 // console.log('new team', createdTeam);
                 return createdTeam;
@@ -120,6 +120,24 @@ export const mutationResolvers = {
             } catch (error) {
                 throw new Error('Team creation failed! Error: ' + error.message);
             }
+        },
+
+        createDepartment: async (_: any, args: any) : Promise<any> => {
+            
+            const newDepartment =  (name: string, description: string) => {
+                const department = new Department({name, description});
+                return department.save();
+            }
+
+            try {
+
+                const createdDepartment = await newDepartment(args.input.name, args.input.description);
+                return createdDepartment;
+                
+            } catch (error) {
+                throw new Error('Department creation failed! Error: ' + error.message);
+            }
         }
+       
     }
 }

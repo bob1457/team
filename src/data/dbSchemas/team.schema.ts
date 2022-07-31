@@ -1,6 +1,5 @@
 import { Schema, model} from "mongoose";
 import { ITeam } from "src/models/team.model";
-import { User } from "./user.schema2";
 
 export const teamSchema = new Schema<ITeam>({
     name : {
@@ -16,7 +15,12 @@ export const teamSchema = new Schema<ITeam>({
         ref: "User",
         required: true
     },
-    members: [{id: String}],
+    members: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
 }, {timestamps: true});
 
 export const Team = model<ITeam>('Team', teamSchema);

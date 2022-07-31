@@ -6,8 +6,13 @@ export const projectSchema = new Schema<IProject>({
         type: "string", 
         required: true
     },
-    description :{ 
+    description: {
         type: "string", 
         required: true
+    },
+    department :{ 
+        type: Schema.Types.ObjectId,
+        ref: "Department", 
+        required:true
     }
 })

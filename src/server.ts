@@ -11,6 +11,7 @@ import { userTypeDefs } from './graphql/schemas/user.type';
 import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 import { model } from './data/dbSchemas';
 import { teamTypeDefs } from './graphql/schemas/team.type';
+import { departmentTypeDefs } from './graphql/schemas/department.type';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ const context = ({ req, res } : any) => {
 const serverConfig : Config = {
     typeDefs: [
         rootType, 
+        departmentTypeDefs,
         userTypeDefs, 
         greetingTypeDefs, 
         projectTypeDefs,

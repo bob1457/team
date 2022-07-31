@@ -10,21 +10,7 @@ export const projectTypeDefs = gql`
         COMPLETED
         ONHOLD
         CANCELED
-    }
-
-    type Department {
-        id: ID!
-        name: String!
-        description: String!
-        projects: [Project]!
-        createdAt: Date
-        updatedAt: Date
-    }
-
-    input NewDepartment {        
-        name: String!
-        description: String!        
-    }
+    }    
 
     type Project {
         id: ID!
@@ -51,7 +37,7 @@ export const projectTypeDefs = gql`
         project(id:ID!): Project
     }
 
-    extend type Mutation {        
+    extend type Mutation {               
         createProject(input: NewProject): Project
     }
 

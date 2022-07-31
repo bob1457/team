@@ -6,5 +6,5 @@ export const taskSchma = new Schema<ITask>({
         type: "string", 
         required: true
     },
-    projectid: String,
+    projectId: String,
 })

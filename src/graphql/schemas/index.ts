@@ -1,4 +1,5 @@
 import { rootType } from "../root";
+import { departmentTypeDefs } from "./department.type";
 import { greetingTypeDefs } from "./greeting.type";
 import { projectTypeDefs } from "./project.type";
 import { taskTypeDefs } from "./task.type";
@@ -11,5 +12,6 @@ export const typeDefs = {
     userTypeDefs,
     teamTypeDefs,
     taskTypeDefs,
+    departmentTypeDefs,
     rootType
 }
