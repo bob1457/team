@@ -11,10 +11,10 @@ export const queryResolvers = {
             return await context.model.UserProfile.findOne({user: args.id});
         },
         teams: async (_: any, __: any, context: any) => {
-            console.log(context);
+            // console.log(context);
             return await context.model.Team.find();
         },
-        team: async (_: any, args: any, context: any) => { 
+        team: async (_: any, args: any, context: any) => {             
             return await context.model.Team.findOne({_id: args.id});
         }      
     }    

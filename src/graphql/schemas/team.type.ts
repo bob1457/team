@@ -1,3 +1,4 @@
+import { User } from './../../data/dbSchemas/user.schema2';
 import { gql } from "apollo-server-express";
 
 export const teamTypeDefs = gql`
@@ -5,7 +6,7 @@ export const teamTypeDefs = gql`
     type Team {
         name: String!
         description: String!
-        members: [User]!
+        members: [User]
         lead: User!
         createdAt: Date
         updatedAt: Date
@@ -17,6 +18,11 @@ export const teamTypeDefs = gql`
         leadId: String!
     }
 
+    input NewMember{
+        userId: String!
+        teamId: String!
+    }
+
     extend type Query {
         teams: [Team]!
         team(id: ID!): Team
@@ -24,5 +30,6 @@ export const teamTypeDefs = gql`
 
     extend type Mutation {
         createTeam(input: NewTeam): Team!
+        addMember(input: NewMember): User
     }
 `;

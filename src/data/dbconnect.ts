@@ -15,7 +15,7 @@ export const Connect = async (dbname: string, host: string, user?: string, passw
         console.log(`Connected to ${dbname} on mongodb...` );
     })
     .catch((err) => {
-        console.log('Error occured conecting to mongodb: ' + err.message);
+        console.log('Error occurred connecting to mongodb: ' + err.message);
     })
     
 }

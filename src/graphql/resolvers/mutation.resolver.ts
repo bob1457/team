@@ -28,7 +28,7 @@ export const mutationResolvers = {
                 }                
                                
                 const salt = bcrypt.genSaltSync(10);
-                let userProfile = null;
+                // let userProfile = null;
 
                 const newUser = (email: String, password: String, isDisabled: Boolean, confirmed: Boolean) => {
                     const user = new User({email, password, isDisabled, confirmed});
@@ -52,15 +52,15 @@ export const mutationResolvers = {
 
                 const createdUser = await newUser(args.input.email, bcrypt.hashSync(args.input.password, salt), false, true)
                                         
-                        console.log(createdUser);
+                        // console.log(createdUser);
 
                         const userId = createdUser.id.toString();
-                        console.log("new user id: ", userId);
+                        // console.log("new user id: ", userId);
 
 
                         const useProfile = await createProfile(args.input.firstName, args.input.lastName, args.input.role, args.input.avatarImgUrl, userId);
                 
-                        console.log(userProfile);
+                        // console.log(userProfile);
 
                         return useProfile;               
 
@@ -120,6 +120,20 @@ export const mutationResolvers = {
             } catch (error) {
                 throw new Error('Team creation failed! Error: ' + error.message);
             }
+        },
+
+        addMember: async (_: any, args: any, {model}: any) : Promise<any> => {
+            console.log(args);
+            try {
+                return await model.Team.findByIdAndUpdate(
+                    args.input.teamId,
+                    { $push: { members: args.input.userId } },
+                    { new: true, useFindAndModify: false }
+                );
+            } catch (error) {
+                throw new Error('Team member adding failed! Error: ' + error.message);
+            }
+            
         },
 
         createDepartment: async (_: any, args: any) : Promise<any> => {
