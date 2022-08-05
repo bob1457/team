@@ -4,9 +4,11 @@ import { gql } from "apollo-server-express";
 export const teamTypeDefs = gql`
 
     type Team {
+        id: ID!
         name: String!
         description: String!
         members: [User]
+        # users: [User]
         lead: User!
         createdAt: Date
         updatedAt: Date
