@@ -6,5 +6,6 @@ export interface IUser {
     password: string;
     confirmed: boolean;
     isDisabled: boolean;
+    teams: [string];
     // profile: IUserProfile;
 }

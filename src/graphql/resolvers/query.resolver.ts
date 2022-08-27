@@ -5,7 +5,7 @@ export const queryResolvers = {
             return await model.User.find();            
         },
         getUserById: async (_: any, args: any, context: any) => {                        
-            return await context.model.User.findOne({_id: args.id});
+            return await context.model.User.findOne({_id: args.id}).populate("teams");
         },
         userProfile: async (_: any, args: any, context: any) => {            
             return await context.model.UserProfile.findOne({user: args.id});

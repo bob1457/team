@@ -23,6 +23,12 @@ export const userSchema = new Schema<IUser>({
         type: Boolean, 
         required: true
    }, 
+   teams: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Team"
+        }
+   ],
 }, {timestamps: true});
 
 export const User = model<IUser>('User', userSchema);

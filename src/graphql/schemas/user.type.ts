@@ -19,7 +19,8 @@ export const userTypeDefs = gql`
         password: String
         isDisabled: Boolean!
         confirmed: Boolean! 
-        profile: UserProfile       
+        profile: UserProfile  
+        teams: [Team]     
         createdAt: Date
         updatedAt: Date
     }
@@ -58,6 +59,7 @@ export const userTypeDefs = gql`
         lastName: String!
         email: String!
         role: UserRole!
+        team: String
         avatarImgUrl: String        
         password: String!
     }

@@ -19,7 +19,7 @@ export const mutationResolvers = {
     },    
     Mutation: {  
 
-        createUser: async (_: any, args: any): Promise<any> => {
+        createUser: async (_: any, args: any, {model}: any): Promise<any> => {
             
             try {
                 const existingUser = await User.findOne({ email: args.input.email});
@@ -50,17 +50,28 @@ export const mutationResolvers = {
                         return profile.save();
                 }
 
+                const addMembership = (team: String, userId: String) => {
+                    return model.User.findByIdAndUpdate(
+                        userId,
+                        { $push: { teams: team } },
+                        { new: true, useFindAndModify: false }
+                    )
+                }
+
                 const createdUser = await newUser(args.input.email, bcrypt.hashSync(args.input.password, salt), false, true)
                                         
                         // console.log(createdUser);
 
                         const userId = createdUser.id.toString();
-                        // console.log("new user id: ", userId);
+                        console.log("new user id: ", userId);
+                        console.log("team id:", args.input.team);
 
 
                         const useProfile = await createProfile(args.input.firstName, args.input.lastName, args.input.role, args.input.avatarImgUrl, userId);
                 
                         // console.log(userProfile);
+
+                        const addToTeam = await addMembership(args.input.team, userId)        
 
                         return useProfile;               
 
