@@ -1,4 +1,3 @@
-import { User } from './../../data/dbSchemas/user.schema2';
 import { gql } from "apollo-server-express";
 
 export const teamTypeDefs = gql`

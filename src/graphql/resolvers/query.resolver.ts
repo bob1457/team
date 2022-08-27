@@ -4,7 +4,7 @@ export const queryResolvers = {
             
             return await model.User.find();            
         },
-        getuserById: async (_: any, args: any, context: any) => {                        
+        getUserById: async (_: any, args: any, context: any) => {                        
             return await context.model.User.findOne({_id: args.id});
         },
         userProfile: async (_: any, args: any, context: any) => {            

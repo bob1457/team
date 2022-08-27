@@ -81,7 +81,7 @@ export const userTypeDefs = gql`
     extend type Query {
         # greeting: String
         getAllUsers: [User]
-        getuserById(id:ID!): User
+        getUserById(id:ID!): User
         # user(id:ID!):User
         # getuserByEmail(input: GetUserByEmail): UserProfile
         userProfile(id: ID!): UserProfile
