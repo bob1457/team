@@ -12,7 +12,7 @@ export const queryResolvers = {
         },
         teams: async (_: any, __: any, context: any) => {
             // console.log(context);
-            return await context.model.Team.find();
+            return await context.model.Team.find().populate("members");
         },
         team: async (_: any, args: any, context: any) => {             
             return await context.model.Team.findOne({_id: args.id}).populate("members");

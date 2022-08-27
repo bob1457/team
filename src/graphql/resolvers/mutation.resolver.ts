@@ -123,7 +123,7 @@ export const mutationResolvers = {
         },
 
         addMember: async (_: any, args: any, {model}: any) : Promise<any> => {
-            console.log(args);
+            // console.log(args);
             try {
                 return await model.Team.findByIdAndUpdate(
                     args.input.teamId,
