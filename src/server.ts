@@ -12,6 +12,7 @@ import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 import { model } from './data/dbSchemas';
 import { teamTypeDefs } from './graphql/schemas/team.type';
 import { departmentTypeDefs } from './graphql/schemas/department.type';
+import { isAuthenticated } from './middleware/isAuthenticated';
 
 dotenv.config();
 
@@ -34,7 +35,8 @@ app.get("/", (_, res) => {
 
 const context = ({ req, res } : any) => {
     return ({
-        token: req.headers.authorization || null,
+        isAuthenticated,
+        // token: req.headers.authorization || null,
         res,
         model
     });

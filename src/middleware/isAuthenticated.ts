@@ -5,8 +5,8 @@ const secret = process.env.JWT_SECRET;
 
 export const isAuthenticated = async (req:any, res:any, next:any) => {
     
-    let token;
-    let decoded;
+    let token:any;
+    let decoded:any;
     // const authHeader = req.header.authorization; //req.get('Authorization');
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')
@@ -14,7 +14,7 @@ export const isAuthenticated = async (req:any, res:any, next:any) => {
         token = req.headers.authorization.split(' ')[1];
       } 
   
-      if (!token) return false;
+      if (!token) return {authStatus: false};
 
       if(secret) {
          decoded = jwt.verify(token, secret);
@@ -23,7 +23,7 @@ export const isAuthenticated = async (req:any, res:any, next:any) => {
 
       if (!decoded) return false;
 
-    return true;
+    return {authStatus: true, userId: decoded.userid};
 
 
 }
