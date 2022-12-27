@@ -1,5 +1,3 @@
-import { Department } from './../../data/dbSchemas/department.schema';
-import { Team } from './../../data/dbSchemas/team.schema';
 import { IDepartment } from 'src/models/department.model';
 import { IResolvers } from '@graphql-tools/utils';
 import { ITeam } from 'src/models/team.model';
