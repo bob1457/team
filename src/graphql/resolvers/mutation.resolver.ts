@@ -6,13 +6,14 @@ import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
 import { Team } from '../../data/dbSchemas/team.schema';
 import { Department } from '../../data/dbSchemas/department.schema';
+import { IResolvers } from '@graphql-tools/utils';
 
 
 dotenv.config();
 
 const secret = process.env.JWT_SECRET;
 
-export const mutationResolvers = {
+export const mutationResolvers: IResolvers = {
     UserRole: {
         ADMIN: 'admin',
         DEVELOPER: 'developer',

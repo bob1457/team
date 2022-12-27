@@ -12,6 +12,8 @@ import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 import { model } from './data/dbSchemas';
 import { teamTypeDefs } from './graphql/schemas/team.type';
 import { departmentTypeDefs } from './graphql/schemas/department.type';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { GraphQLSchema } from 'graphql';
 // import { isAuthenticated } from './middleware/isAuthenticated';
 
 dotenv.config();
@@ -54,16 +56,31 @@ const context = async ({ req } : any) => {
     });
 }
 
+const typeDefs = [
+    rootType, 
+    departmentTypeDefs,
+    userTypeDefs, 
+    greetingTypeDefs, 
+    projectTypeDefs,
+    teamTypeDefs
+]
+
+const schema : GraphQLSchema = makeExecutableSchema({
+    typeDefs,
+    resolvers: mergeResolvers(resolvers)
+});
+
 const serverConfig : Config = {
-    typeDefs: [
-        rootType, 
-        departmentTypeDefs,
-        userTypeDefs, 
-        greetingTypeDefs, 
-        projectTypeDefs,
-        teamTypeDefs
-    ],
-    resolvers: mergeResolvers(resolvers),
+    // typeDefs: [
+    //     rootType, 
+    //     departmentTypeDefs,
+    //     userTypeDefs, 
+    //     greetingTypeDefs, 
+    //     projectTypeDefs,
+    //     teamTypeDefs
+    // ],
+    // resolvers: mergeResolvers(resolvers),
+    schema,
     context
 }
 
