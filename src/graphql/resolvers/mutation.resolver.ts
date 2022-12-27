@@ -1,3 +1,4 @@
+import { IDepartment } from 'src/models/department.model';
 import { UserProfile } from './../../data/dbSchemas/user.profile.schema';
 import bcrypt from 'bcryptjs';
 import { User } from "../../data/dbSchemas/user.schema2";
@@ -147,7 +148,9 @@ export const mutationResolvers = {
             
         },
 
-        createDepartment: async (_: any, args: any) : Promise<any> => {
+        createDepartment: async (_: any, args:{
+            input: {name: string, description: string}
+}) : Promise<IDepartment> => {
             
             const newDepartment =  (name: string, description: string) => {
                 const department = new Department({name, description});

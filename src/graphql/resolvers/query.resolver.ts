@@ -1,3 +1,6 @@
+import { Department } from './../../data/dbSchemas/department.schema';
+import { Team } from './../../data/dbSchemas/team.schema';
+import { IDepartment } from 'src/models/department.model';
 import { IResolvers } from '@graphql-tools/utils';
 import { ITeam } from 'src/models/team.model';
 import { IUser } from 'src/models/user.model';
@@ -28,6 +31,12 @@ export const queryResolvers : IResolvers = {
         },
         team: async (_: any, args: {id: string}, context: any) : Promise<ITeam> => {             
             return await context.model.Team.findOne({_id: args.id}).populate("members");
-        }      
+        },
+        getAllDepartments: async(_: any, __:any, {model}: any) : Promise<[IDepartment]> => {
+            return await model.Department.find();
+        },
+        getDepartmentById: async(_: any, args: {id: string}, {model}: any) : Promise<IDepartment> => {
+            return await model.Department.findOne({_id: args.id});
+        }
     }    
 }

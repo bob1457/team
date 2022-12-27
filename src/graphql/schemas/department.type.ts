@@ -20,8 +20,8 @@ export const departmentTypeDefs = gql`
     
 
     extend type Query {
-        departments: [Department]!
-        department(id:ID!) : Department 
+        getAllDepartments: [Department]!
+        getDepartmentById(id:ID!) : Department 
     }
 
     extend type Mutation {
