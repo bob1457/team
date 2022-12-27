@@ -12,12 +12,12 @@ import { greetingTypeDefs } from './graphql/schemas/greeting.type';
 import { model } from './data/dbSchemas';
 import { teamTypeDefs } from './graphql/schemas/team.type';
 import { departmentTypeDefs } from './graphql/schemas/department.type';
-import { isAuthenticated } from './middleware/isAuthenticated';
+// import { isAuthenticated } from './middleware/isAuthenticated';
 
 dotenv.config();
 
 
-const port = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 // Db connection
 Connect('team','mongodb://127.0.0.1:27017');
@@ -33,11 +33,23 @@ app.get("/", (_, res) => {
 
 // const baseTypeDefs = gql`  type Query, type Mutation, type Subscription`;
 
-const context = ({ req, res } : any) => {
+const context = async ({ req } : any) => {
+    // let auth = null;
+    let user = null;
+
+    // const token = req.headers.authorization.split(' ')[1] || null;
+    // console.log('token in', token);
+
+    // auth = await isAuthenticated(token);
+    // if(auth !=null) {
+    //     user = await model.User.findOne({_id: auth.userid});
+    //     console.log('status', auth);
+    // }
+    
     return ({
-        isAuthenticated,
-        // token: req.headers.authorization || null,
-        res,
+        // isAuthenticated,
+        user,
+        // token,        
         model
     });
 }
@@ -66,8 +78,9 @@ const main = async () => {
     // apolloServer.start().then(_ => {
     //     apolloServer.applyMiddleware({ app, cors: true });
     
-    app.listen(port, () => {
-        console.log(`Apollo server started and is listening to port: ${port}`);
+    app.listen(PORT, () => {
+        console.log(`Apollo server started and is accessible at: 'http://localhost:${PORT}${apolloServer.graphqlPath}'`);
+        // console.log(`http://localhost:${PORT}${apolloServer.graphqlPath}`);
     });
 };
 

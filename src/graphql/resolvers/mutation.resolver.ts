@@ -92,9 +92,9 @@ export const mutationResolvers = {
                     throw new Error('Incorrect credentials!')
                 }
 
-                const isCorretPasswords = await bcrypt.compare(args.input.password, user.password);
+                const isCorrectPasswords = await bcrypt.compare(args.input.password, user.password);
 
-                if(!isCorretPasswords) {
+                if(!isCorrectPasswords) {
                     throw new Error('Incorrect credentials!')
                 }
 
@@ -111,7 +111,7 @@ export const mutationResolvers = {
                 }
 
             } catch (error) {
-                throw new Error('Error occured: ' + error.message);
+                throw new Error('Error occurred: ' + error.message);
             }
         },
 
